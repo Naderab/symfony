@@ -14,4 +14,6 @@ class StudentController extends AbstractController
     public function index():Response{
         return new Response("bonjour mes étudiants") ;
     }
+
+
 }

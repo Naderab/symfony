@@ -9,7 +9,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeacherController extends AbstractController
 {
     /**
-     * @Route("/teacher", name="teacher")
+     * @Route("/teacher/{name}", name="showTeacherTwig")
+     */
+    public function showTeacher($name):Response
+    {
+        return new Response("Bonjour ".$name);
+    }
+    /**
+     * @Route("/teacher/index", name="showTeacher")
      */
     public function index(): Response
     {
@@ -18,13 +25,7 @@ class TeacherController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/showTeacher/{name}", name="showTeacher")
-     */
-    public function showTeacher($name):Response
-    {
-        return new Response("Bonjour ".$name);
-    }
+
 
     /**
      * @Route("/showTeacherTwig/{name}", name="showTeacher1")
