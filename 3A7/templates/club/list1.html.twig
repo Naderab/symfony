@@ -1,0 +1,28 @@
+
+<table border="1">
+    {% for formation in listeTableau %}
+    <tr>
+        <td>{{ formation.ref}}</td>
+        <td>{{ formation.Titre | upper}}</td>
+        <td>{{ formation.Description}}</td>
+        <td>{{ formation.date_debut}}</td>
+        <td>{{ formation.date_fin}}</td>
+        <td>{{ formation.nb_participants}}</td>
+        {#  <td>
+            {% if formation.nb_participants == 0 %}
+                <form action="{{ path('getName',{'name':formation.Titre}) }}">
+                    <button>Participer</button>
+                </form>
+            {% endif %}
+        </td>
+        #}
+        <td>
+            {% if formation.nb_participants == 0 %}
+            <a href="{{path('getName',{'name':formation.Titre}) }}" >Participer</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+le nombre totale : {{ listeTableau | length }}

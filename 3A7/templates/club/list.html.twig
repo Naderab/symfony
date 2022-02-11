@@ -1,0 +1,26 @@
+le nombre de formation est {{ listeTableau|length }}
+
+<table border="2">
+
+    {% for club in listeTableau %}  <tr>
+
+        <td>{{club.ref}}</td>
+        <td>{{club.Titre|upper()}}</td>
+        <td>{{club.Description}}</td>
+        <td>{{club.date_debut}}</td>
+        <td>{{club.nb_participants}}</td>
+        {# <td>
+            {% if club.nb_participants == 0 %}
+            <form action="{{ path('getName',{'name':club.Titre}) }}" >
+                <button>Participer</button>
+            </form>
+            {% endif %}
+        </td>#}
+        <td>
+            {% if club.nb_participants == 0 %}
+            <a href="{{ url('getName',{'name':club.Titre}) }}" >Participer</a>
+            {% endif %}
+        </td>
+    </tr>    {% endfor %}
+</table>
+
