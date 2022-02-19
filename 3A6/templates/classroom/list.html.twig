@@ -1,0 +1,10 @@
+<h1>Liste des classes</h1>
+<table border="1">
+    {% for c in list %}
+    <tr>
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td><a href="{{ path('detail',{'id':c.id}) }}">Details</a></td>
+    </tr>
+    {% endfor %}
+</table>
