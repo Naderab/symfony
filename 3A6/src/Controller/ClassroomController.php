@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Classroom;
 use App\Form\ClassroomType;
 use App\Repository\ClassroomRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,19 +42,53 @@ class ClassroomController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="add")
+     * @Route("/addClass", name="addClass")
      */
-    public function add(Request $request):Response
+    public function add(Request $req)
     {
-        $classroom= new Classroom();
-        $form=$this->createForm(ClassroomType::class,$classroom);
-        $form->handleRequest($request);
-        if($form->isSubmitted()){
+        $class = new Classroom();
+        $form = $this->createForm(ClassroomType::class,$class);
+        $form->handleRequest($req);
+        if($form->isSubmitted())
+        {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($classroom);
+            $em->persist($class);
             $em->flush();
             return $this->redirectToRoute('listclassroom');
         }
+
+        return $this->render('classroom/add.html.twig',['formClass'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete($id,EntityManagerInterface $em,ClassroomRepository $rep)
+    {
+        /*$class = $this->getDoctrine()->getRepository(Classroom::class)->find($id);
+        $em1 = $this->getDoctrine()->getManager();
+        $em1->remove($class);
+        $em1->flush();*/
+
+        $em->remove($rep->find($id));
+        $em->flush();
+        return $this->redirectToRoute('listclassroom');
+    }
+    /**
+     * @Route("/update/{id}", name="update")
+     */
+    public function update(Request $req,$id)
+    {
+        $class = $this->getDoctrine()->getRepository(Classroom::class)->find($id);
+        $form = $this->createForm(ClassroomType::class,$class);
+        $form->handleRequest($req);
+        if($form->isSubmitted())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('listclassroom');
+        }
+
         return $this->render('classroom/add.html.twig',['formClass'=>$form->createView()]);
     }
 }

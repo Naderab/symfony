@@ -1,0 +1,12 @@
+<h1>List of students</h1>
+<a href="{{ path('addStudent') }}">Add new Student</a>
+<table border="1">
+    {% for s in students %}
+    <tr>
+        <td>{{ s.nsc }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.username }}</td>
+        <td>{{ s.classroom }}</td>
+    </tr>
+     {% endfor %}
+</table>

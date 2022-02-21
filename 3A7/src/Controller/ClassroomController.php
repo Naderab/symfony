@@ -42,28 +42,46 @@ class ClassroomController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="add")
+     * @Route("/addClassroom", name="addClassroom")
      */
-    public function add(Request $request,EntityManagerInterface $em):Response
+    public function add(Request $req)
     {
-        $class=new Classroom();
-        $form=$this->createForm(ClassroomType::class,$class);
-        $form->handleRequest($request);
+        $class = new Classroom();
+        $form = $this->createForm(ClassroomType::class,$class);
+        $form->handleRequest($req);
         if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
             $em->persist($class);
             $em->flush();
+            return $this->redirectToRoute('listclassroom');
+        }
+        return $this->render('classroom/add.html.twig',['formClass'=>$form->createView()]);
+    }
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete($id,EntityManagerInterface $manager)
+    {
+        $manager->remove($this->getDoctrine()->getRepository(Classroom::class)->find($id));
+        $manager->flush();
+        return $this->redirectToRoute('listclassroom');
+    }
+
+    /**
+     * @Route("/updateClassroom/{id}", name="updateClassroom")
+     */
+    public function update(Request $req,$id,ClassroomRepository $rep)
+    {/* $this->getDoctrine()->getRepository(Classroom::class)*/
+        $class = $rep->find($id);
+        $form = $this->createForm(ClassroomType::class,$class);
+        $form->handleRequest($req);
+        if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('listclassroom');
         }
         return $this->render('classroom/add.html.twig',['formClass'=>$form->createView()]);
     }
 
-    /**
-     * @Route("/delete/{id}", name="delete")
-     */
-    public function delete($id,ClassroomRepository $c,EntityManagerInterface $em)
-    {
-        $class=$c->find($id);
-        $em->remove($class);
-        $em->flush();
-        return $this->redirectToRoute('listclassroom');
-    }
+
 }
