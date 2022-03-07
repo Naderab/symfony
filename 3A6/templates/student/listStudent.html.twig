@@ -1,0 +1,63 @@
+<a href="{{ path('addStudent') }}">Add Student</a>
+{{ form_start(form) }}
+{{ form_label(form.nsc,"Numéro d'inscription :") }}
+{{ form_widget(form.nsc) }}
+{{ form_end(form) }}
+<table border="1"><tr>
+        <td>NSC</td>
+        <td>Email</td>
+        <td>Average</td>
+        <td>Classroom</td>
+        <td COLSPAN="2">Action</td>
+    </tr>
+{%  for i in student %}
+<tr>
+    <td>
+    {{ i.nsc }}
+    </td>
+    <td>
+    {{ i.email }}
+    </td>
+    <td>
+        {{ i.average }}
+    </td>
+    <td>
+    {{ i.classroom.name }}
+    </td>
+    <td COLSPAN="2">
+        <a href="{{path ('deletestudent',{'nsc':i.nsc})  }}">Supprimer</a>
+        <a href="{{path ('updatestudent',{'nsc':i.nsc})  }}">modifier</a></td>
+</tr>
+{% endfor %}
+</table>
+
+<h1>List student ordered by email</h1>
+
+<table border="1"><tr>
+        <td>NSC</td>
+        <td>Email</td>
+        <td>Average</td>
+        <td>Classroom</td>
+        <td COLSPAN="2">Action</td>
+    </tr>
+    {%  for i in byEmail %}
+        <tr>
+            <td>
+                {{ i.nsc }}
+            </td>
+            <td>
+                {{ i.email }}
+            </td>
+            <td>
+                {{ i.average }}
+            </td>
+            <td>
+                {{ i.classroom.name }}
+            </td>
+            <td COLSPAN="2">
+                <a href="{{path ('deletestudent',{'nsc':i.nsc})  }}">Supprimer</a>
+                <a href="{{path ('updatestudent',{'nsc':i.nsc})  }}">modifier</a></td>
+        </tr>
+    {% endfor %}
+</table>
+

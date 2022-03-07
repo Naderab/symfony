@@ -8,6 +8,8 @@
         <td><a href="{{ path('detail',{'id':c.id}) }}">Details</a></td>
         <td><a href="{{ path('delete',{'id':c.id}) }}">Supprimer</a></td>
         <td><a href="{{ path('update',{'id':c.id}) }}">Modifier</a></td>
+        <td><a href="{{ path('studentsByClassroom',{'id':c.id}) }}">Show students</a></td>
+
     </tr>
     {% endfor %}
 </table>

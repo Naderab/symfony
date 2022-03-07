@@ -27,6 +27,11 @@ class Student
      */
     private $classroom;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $average;
+
 
     public function getNsc(): ?string
     {
@@ -60,6 +65,18 @@ class Student
     public function setClassroom(?Classroom $classroom): self
     {
         $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    public function getAverage(): ?int
+    {
+        return $this->average;
+    }
+
+    public function setAverage(int $average): self
+    {
+        $this->average = $average;
 
         return $this;
     }

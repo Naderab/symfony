@@ -1,0 +1,27 @@
+<table border="1"><tr>
+        <td>NSC</td>
+        <td>Email</td>
+        <td>Average</td>
+        <td>Classroom</td>
+        <td COLSPAN="2">Action</td>
+    </tr>
+    {%  for i in students %}
+        <tr>
+            <td>
+                {{ i.nsc }}
+            </td>
+            <td>
+                {{ i.email }}
+            </td>
+            <td>
+                {{ i.average }}
+            </td>
+            <td>
+                {{ i.classroom.name }}
+            </td>
+            <td COLSPAN="2">
+                <a href="{{path ('deletestudent',{'nsc':i.nsc})  }}">Supprimer</a>
+                <a href="{{path ('updatestudent',{'nsc':i.nsc})  }}">modifier</a></td>
+        </tr>
+    {% endfor %}
+</table>
